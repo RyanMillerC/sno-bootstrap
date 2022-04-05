@@ -29,9 +29,7 @@ fi
 # Download RHCOS ISO if it's not present
 if [[ ! -f ./rhcos.x86_64.iso ]] ; then
     echo "./rhcos.x86_64.iso not present; Downloading RHCOS image..."
-    ISO_URL=$(./openshift-install/openshift-install coreos print-stream-json \
-        | grep location | grep x86_64 | grep iso | cut -d\" -f4)
-    curl -L -s -o rhcos.x86_64.iso "$ISO_URL"
+    curl -L -o rhcos.x86_64.iso "https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/latest/rhcos-live.x86_64.iso"
 else
     echo "./rhcos.x86_64.iso present; Using existing RHCOS image"
 fi
