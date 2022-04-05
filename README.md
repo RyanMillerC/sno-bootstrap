@@ -7,6 +7,9 @@ Repo automates [these
 steps](https://docs.openshift.com/container-platform/4.10/installing/installing_sno/install-sno-installing-sno.html#generating-the-discovery-iso-manually_install-sno-installing-sno-with-the-assisted-installer)
 outlined in the OpenShift documentation.
 
+**This script was built for RHEL 8. I haven't tested other RHEL versions, other
+distros, or MacOS.**
+
 ## Generate ISO
 
 No prerequisites are required to run `create-iso.sh`. The script will download
