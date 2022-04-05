@@ -23,7 +23,7 @@ if [[ ! -d ./coreos-installer ]] ; then
     curl -s -o coreos-installer https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64
     chmod +x coreos-installer
 else
-    echo "./coreos-install present; Using existing executable"
+    echo "./coreos-installer present; Using existing executable"
 fi
 
 # Download RHCOS ISO if it's not present
