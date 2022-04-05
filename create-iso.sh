@@ -18,9 +18,9 @@ else
 fi
 
 # Download coreos-installer if it's not present
-if [[ ! -d ./coreos-installer ]] ; then
+if [[ ! -f ./coreos-installer ]] ; then
     echo "./coreos-installer not present; Downloading coreos-installer..."
-    curl -s -o coreos-installer https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64
+    curl -L -o coreos-installer "https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64"
     chmod +x coreos-installer
 else
     echo "./coreos-installer present; Using existing executable"
