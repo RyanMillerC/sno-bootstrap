@@ -9,6 +9,11 @@ outlined in the OpenShift documentation.
 
 ## Generate ISO
 
+No prerequisites are required to run `create-iso.sh`. The script will download
+*openshift-install*, *coreos-installer*, and the RHCOS live image. If you run
+the script multiple times, it will used the previously downloaded copies of the
+installers/ISO.
+
 Prior to starting you'll need to know:
 
 * Your JSON pull secret
