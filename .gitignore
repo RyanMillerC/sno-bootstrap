@@ -1,5 +1,4 @@
-# Ignore openshift-install directory/executable
-/openshift-install
-
-# Ignore RHCOS image
+# Ignore downloaded files
+openshift-install
+coreos-install
 rhcos.x86_64.iso
