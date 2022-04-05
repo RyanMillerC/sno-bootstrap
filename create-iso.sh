@@ -3,6 +3,8 @@
 # Create custom ISO for SNO deployment
 #
 
+set -e
+
 # Download openshift-install if it's not present
 if [[ ! -f ./openshift-install ]] ; then
     echo "./openshift-install not present; Downloading openshift-install..."
