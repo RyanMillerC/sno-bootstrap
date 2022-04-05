@@ -25,7 +25,8 @@ fi
 # Download openshift-install if it's not present
 if [[ ! -f ./openshift-install ]] ; then
     echo "./openshift-install not present; Downloading openshift-install..."
-    curl -L -o openshift-install-linux.tar.gz "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux.tar.gz"
+    curl -L -o openshift-install-linux.tar.gz \
+        "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux.tar.gz"
     echo "Unpacking openshift-install..."
     tar -zxf openshift-install-linux.tar.gz openshift-install
     rm openshift-install-linux.tar.gz
@@ -37,7 +38,8 @@ fi
 # Download coreos-installer if it's not present
 if [[ ! -f ./coreos-installer ]] ; then
     echo "./coreos-installer not present; Downloading coreos-installer..."
-    curl -L -o coreos-installer "https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64"
+    curl -L -o coreos-installer \
+        "https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64"
     chmod +x coreos-installer
 else
     echo "./coreos-installer present; Using existing executable"
