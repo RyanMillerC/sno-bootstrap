@@ -17,6 +17,15 @@ else
     echo "./openshift-install present; Using existing executable"
 fi
 
+# Download coreos-installer if it's not present
+if [[ ! -d ./coreos-installer ]] ; then
+    echo "./coreos-installer not present; Downloading coreos-installer..."
+    curl -s -o coreos-installer https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64
+    chmod +x coreos-installer
+else
+    echo "./coreos-install present; Using existing executable"
+fi
+
 # Download RHCOS ISO if it's not present
 if [[ ! -f ./rhcos.x86_64.iso ]] ; then
     echo "./rhcos.x86_64.iso not present; Downloading RHCOS image..."
