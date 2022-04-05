@@ -1,2 +1,5 @@
 # Ignore openshift-install directory/executable
 /openshift-install
+
+# Ignore RHCOS image
+rhcos.x86_64.iso
