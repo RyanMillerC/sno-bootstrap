@@ -1,0 +1,2 @@
+# Ignore openshift-install directory/executable
+/openshift-install
