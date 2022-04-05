@@ -2,3 +2,6 @@
 openshift-install
 coreos-installer
 rhcos.x86_64.iso
+
+# Ignore user created install-config.yaml
+install-config.yaml
