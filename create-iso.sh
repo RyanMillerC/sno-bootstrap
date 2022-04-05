@@ -5,6 +5,11 @@
 
 set -e
 
+if [[ -d ./ocp ]] ; then
+    >&2 echo './ocp exists from previous run. Remove it before running again!'
+    exit 1
+fi
+
 # Download openshift-install if it's not present
 if [[ ! -f ./openshift-install ]] ; then
     echo "./openshift-install not present; Downloading openshift-install..."
@@ -33,3 +38,21 @@ if [[ ! -f ./rhcos.x86_64.iso ]] ; then
 else
     echo "./rhcos.x86_64.iso present; Using existing RHCOS image"
 fi
+
+echo "Generating ignition config from install-config.yaml..."
+mkdir ocp
+cp install-config.yaml ocp
+./openshift-install --dir=ocp create single-node-ignition-config
+
+echo "Copying RHCOS image..."
+cp rhcos.x86_64.iso ocp/custom_rhcos.x86_64.iso
+
+echo "Embedding igntion config into RHCOS image..."
+./coreos-installer \
+    iso \
+    ignition \
+    embed \
+    -fi ocp/bootstrap-in-place-for-live-iso.ign \
+    ocp/custom_rhcos.x86_64.iso
+
+echo "Complete!"
