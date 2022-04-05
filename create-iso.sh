@@ -15,10 +15,11 @@ CLUSTER_NAME=$(grep -A 1 'metadata:' install-config.yaml \
                  | tail -n 1 \
                  | cut -d ':' -f 2 \
                  | xargs)
+OUTPUT_DIR="./output/${CLUSTER_NAME}"
 
-if [[ -d ./$CLUSTER_NAME ]] ; then
-    >&2 echo "./$CLUSTER_NAME exists from previous run. Remove it before" \
-             "running again!"
+if [[ -d $OUTPUT_DIR ]] ; then
+    >&2 echo "$OUTPUT_DIR exists from previous run. Remove it before running" \
+             "again!"
     exit 1
 fi
 
@@ -55,19 +56,19 @@ else
 fi
 
 echo "Generating ignition config from install-config.yaml..."
-mkdir "$CLUSTER_NAME"
-cp install-config.yaml "$CLUSTER_NAME"
-./openshift-install --dir="$CLUSTER_NAME" create single-node-ignition-config
+mkdir -p "$OUTPUT_DIR"
+cp install-config.yaml "$OUTPUT_DIR"
+./openshift-install --dir="$OUTPUT_DIR" create single-node-ignition-config
 
 echo "Copying RHCOS image..."
-cp rhcos.x86_64.iso "${CLUSTER_NAME}/rhcos_${CLUSTER_NAME}.x86_64.iso"
+cp rhcos.x86_64.iso "${OUTPUT_DIR}/rhcos_${CLUSTER_NAME}.x86_64.iso"
 
 echo "Embedding igntion config into RHCOS image..."
 ./coreos-installer \
     iso \
     ignition \
     embed \
-    -fi "${CLUSTER_NAME}/bootstrap-in-place-for-live-iso.ign" \
-    "${CLUSTER_NAME}/rhcos_${CLUSTER_NAME}.x86_64.iso"
+    -fi "${OUTPUT_DIR}/bootstrap-in-place-for-live-iso.ign" \
+    "${OUTPUT_DIR}/rhcos_${CLUSTER_NAME}.x86_64.iso"
 
 echo "Complete!"
