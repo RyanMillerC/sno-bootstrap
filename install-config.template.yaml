@@ -19,6 +19,5 @@ platform:
   none: {}
 bootstrapInPlace:
   installationDisk: /dev/vda
-pullSecret: {}
-sshKey: |
-  test
+pullSecret: 'REPLACE_ME'
+sshKey: 'REPLACE_ME'
