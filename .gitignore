@@ -6,5 +6,5 @@ rhcos.x86_64.iso
 # Ignore user created install-config.yaml
 install-config.yaml
 
-# Ignore generated files
-ocp
+# Ignore generated cluster data
+output
