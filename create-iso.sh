@@ -6,7 +6,8 @@
 set -e
 
 if [[ ! -f ./install-config.yaml ]] ; then
-    >&2 echo "./install-config.yaml not found. See README.md for script usage."
+    >&2 echo "ERROR: ./install-config.yaml not found. See README.md for" \
+             "script usage."
     exit 1
 fi
 
@@ -18,8 +19,8 @@ CLUSTER_NAME=$(grep -A 1 'metadata:' install-config.yaml \
 OUTPUT_DIR="./output/${CLUSTER_NAME}"
 
 if [[ -d $OUTPUT_DIR ]] ; then
-    >&2 echo "$OUTPUT_DIR exists from previous run. Remove it before running" \
-             "again!"
+    >&2 echo "ERROR: $OUTPUT_DIR exists from previous run. Remove it before" \
+             "running again!"
     exit 1
 fi
 
