@@ -78,4 +78,4 @@ echo "Installer Output (kubeconfig is here!): $OUTPUT_DIR"
 echo "ISO Path: ${OUTPUT_DIR}/rhcos_${CLUSTER_NAME}.x86_64.iso"
 echo
 echo "Boot machine using the ISO above. After booting, monitor progress with:"
-echo "$ ./openshift-install --dir=\"${OUTPUT_DIR}\" wait-for install-complete"
+echo "$ ./openshift-install --dir=\"${OUTPUT_DIR}\" wait-for bootstrap-complete"
