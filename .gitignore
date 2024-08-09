@@ -8,3 +8,6 @@ install-config.yaml
 
 # Ignore generated cluster data
 output
+
+# Ignore temp files
+/tmp
