@@ -20,6 +20,7 @@ CLUSTER_NAME=$(grep -A 1 'metadata:' install-config.yaml \
                  | cut -d ':' -f 2 \
                  | xargs)
 OUTPUT_DIR="./output/${CLUSTER_NAME}"
+OCP_VERSION="latest"
 
 if [[ -d $OUTPUT_DIR ]] ; then
     >&2 echo "ERROR: $OUTPUT_DIR exists from previous run. Remove it before" \
@@ -31,7 +32,7 @@ fi
 if [[ ! -f ./openshift-install ]] ; then
     echo "./openshift-install not present; Downloading openshift-install..."
     curl -L -o openshift-install-linux.tar.gz \
-        "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux.tar.gz"
+        "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$OCP_VERSION/openshift-install-linux.tar.gz"
     echo "Unpacking openshift-install..."
     tar -zxf openshift-install-linux.tar.gz openshift-install
     rm openshift-install-linux.tar.gz
@@ -44,7 +45,7 @@ fi
 if [[ ! -f ./rhcos.x86_64.iso ]] ; then
     echo "./rhcos.x86_64.iso not present; Downloading RHCOS image..."
     curl -L -o rhcos.x86_64.iso \
-        "https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/latest/rhcos-live.x86_64.iso"
+        "https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/$OCP_VERSION/rhcos-live.x86_64.iso"
 else
     echo "./rhcos.x86_64.iso present; Using existing RHCOS image"
 fi
