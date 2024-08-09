@@ -29,3 +29,13 @@ $ cp install-config.template.yaml install-config.yaml
 # Edit install-config.yaml; Replace sections marked "REPLACE_ME"
 $ ./create-iso.sh
 ```
+
+The ISO, authentication information, and other installer files will be written
+to a directory in ./output.
+
+After booting from the ISO, you can monitor progress with:
+
+```bash
+$ CLUSTER_NAME='my-cluster' # Don't include the domain
+$ ./openshift-install --dir="./output/${CLUSTER_NAME}" wait-for bootstrap-complete
+```

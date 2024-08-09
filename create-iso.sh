@@ -5,6 +5,9 @@
 
 set -e
 
+# Fix RHEL 9
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
+
 if [[ ! -f ./install-config.yaml ]] ; then
     >&2 echo "ERROR: ./install-config.yaml not found. See README.md for" \
              "script usage."
@@ -37,16 +40,6 @@ else
     echo "./openshift-install present; Using existing executable"
 fi
 
-# Download coreos-installer if it's not present
-if [[ ! -f ./coreos-installer ]] ; then
-    echo "./coreos-installer not present; Downloading coreos-installer..."
-    curl -L -o coreos-installer \
-        "https://mirror.openshift.com/pub/openshift-v4/clients/coreos-installer/latest/coreos-installer_amd64"
-    chmod +x coreos-installer
-else
-    echo "./coreos-installer present; Using existing executable"
-fi
-
 # Download RHCOS ISO if it's not present
 if [[ ! -f ./rhcos.x86_64.iso ]] ; then
     echo "./rhcos.x86_64.iso not present; Downloading RHCOS image..."
@@ -65,12 +58,21 @@ echo "Copying RHCOS image..."
 cp rhcos.x86_64.iso "${OUTPUT_DIR}/rhcos_${CLUSTER_NAME}.x86_64.iso"
 
 echo "Embedding igntion config into RHCOS image..."
-./coreos-installer \
-    iso \
-    ignition \
-    embed \
-    -fi "${OUTPUT_DIR}/bootstrap-in-place-for-live-iso.ign" \
-    "${OUTPUT_DIR}/rhcos_${CLUSTER_NAME}.x86_64.iso"
+podman run \
+  --privileged \
+  --pull always \
+  --rm \
+  -v /dev:/dev \
+  -v /run/udev:/run/udev \
+  -v $PWD:/data \
+  -w /data \
+  quay.io/coreos/coreos-installer:release \
+  iso \
+  ignition \
+  embed \
+  -fi \
+  "${OUTPUT_DIR}/bootstrap-in-place-for-live-iso.ign" \
+  "${OUTPUT_DIR}/rhcos_${CLUSTER_NAME}.x86_64.iso"
 
 echo "Complete!"
 echo
