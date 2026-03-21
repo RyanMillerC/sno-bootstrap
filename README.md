@@ -1,3 +1,7 @@
+> **2026-03-20:** You should probably use the assisted installer (wizard-based web UI) instead. It will generate you a ~120MB live-OS ISO that connects to Red Hat for the full install. https://console.redhat.com/openshift/assisted-installer/
+>
+> This repo could still work but why go through extra effort? 🤷🏻‍♂️
+
 # SNO (Single-Node OpenShift) Bootstrap
 
 Generate custom ISO with embedded ignition config to bootstrap a SNO
